@@ -1,6 +1,20 @@
 #!/bin/bash
 
+# Redirect stdin from /dev/tty to allow interactive input when piped via curl
+if [ -t 0 ]; then
+    # Already running interactively, no need to redirect
+    :
+elif [ -r /dev/tty ]; then
+    # Stdin is not a terminal (e.g., piped from curl), redirect from /dev/tty
+    exec < /dev/tty
+else
+    echo "Error: Cannot read from terminal. Please run this script directly, not piped through curl in a non-interactive environment." >&2
+    exit 1
+fi
+
 # Base URL for fetching scripts
+# NOTE: This points to 'main' branch. When testing a PR branch, you may want to 
+# change this temporarily to the PR branch name (e.g., copilot/fix-curl-choice-blocks)
 BASE_URL="https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main"
 TMP_DIR="/tmp/wifitester.$$"
 
