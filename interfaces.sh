@@ -4,6 +4,8 @@ select_interface() {
     # Get list of interfaces
     IFACES=()
     while IFS=: read -r _ name _; do
+        # Trim whitespace from interface name
+        name=$(echo "$name" | xargs)
         IFACES+=("$name")
     done < <(ip -o link show)
 

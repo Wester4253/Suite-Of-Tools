@@ -13,6 +13,8 @@ else
 fi
 
 # Base URL for fetching scripts
+# NOTE: This points to 'main' branch. When testing a PR branch, you may want to 
+# change this temporarily to the PR branch name (e.g., copilot/fix-curl-choice-blocks)
 BASE_URL="https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main"
 TMP_DIR="/tmp/wifitester.$$"
 
