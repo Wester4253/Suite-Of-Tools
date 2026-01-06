@@ -1,5 +1,17 @@
 #!/bin/bash
 
+BASE_URL="https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main"
+TMP="/tmp/wifitester.$$"
+
+mkdir -p "$TMP"
+cd "$TMP" || exit 1
+
+curl -fsS "$BASE_URL/interfaces.sh" -o interfaces.sh || exit 1
+curl -fsS "$BASE_URL/tests.sh"      -o tests.sh      || exit 1
+curl -fsS "$BASE_URL/output.sh"     -o output.sh     || exit 1
+
+chmod +x *.sh
+
 source ./interfaces.sh
 source ./tests.sh
 source ./output.sh
@@ -39,3 +51,6 @@ print_section "Overall Network Health"
 score_bar "$TOTAL"
 
 green "Diagnostics complete. Stay connected."
+
+cd /
+rm -rf "$TMP"
