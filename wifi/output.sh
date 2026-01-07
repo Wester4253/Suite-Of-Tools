@@ -3,9 +3,19 @@
 green() { echo -e "\e[1;32m$1\e[0m"; }
 red()   { echo -e "\e[1;31m$1\e[0m"; }
 cyan()  { echo -e "\e[1;36m$1\e[0m"; }
+yellow() { echo -e "\e[1;33m$1\e[0m"; }
+
+# Verbose mode flag (default: off)
+VERBOSE=${VERBOSE:-0}
+
+verbose() {
+    if [ "$VERBOSE" = "1" ]; then
+        echo "$@"
+    fi
+}
 
 print_header() {
-    cyan "Wifi Tester script, made by Noa Butterfield."
+    cyan "Network Tester script, made by Noa Butterfield."
 }
 
 print_section() {
