@@ -10,20 +10,30 @@ gateway_test() {
 }
 
 packet_loss() {
-    ping -I "$IFACE" -c 10 1.1.1.1 | grep -oP '\d+(?=% packet loss)'
+    verbose "Running packet loss test (10 pings to 1.1.1.1)..."
+    OUTPUT=$(ping -I "$IFACE" -c 10 1.1.1.1)
+    verbose "$OUTPUT"
+    echo "$OUTPUT" | grep -oP '\d+(?=% packet loss)'
 }
 
 latency_stats() {
-    ping -I "$IFACE" -c 10 1.1.1.1 | grep -oP '(?<=rtt min/avg/max/mdev = ).*'
+    verbose "Running latency test (10 pings to 1.1.1.1)..."
+    OUTPUT=$(ping -I "$IFACE" -c 10 1.1.1.1)
+    verbose "$OUTPUT"
+    echo "$OUTPUT" | grep -oP '(?<=rtt min/avg/max/mdev = ).*'
 }
 
 # Cloudflare API speed test (no deps)
 run_speedtest() {
+    verbose "Running speed test (downloading 25MB from Cloudflare)..."
     curl -4 --interface "$IFACE" -s https://speed.cloudflare.com/__down?bytes=25000000 >/dev/null
     DL=$(curl -4 --interface "$IFACE" -s -w '%{speed_download}\n' -o /dev/null https://speed.cloudflare.com/__down?bytes=25000000)
+    verbose "Download speed (raw): $DL bytes/sec"
 
+    verbose "Running upload test (uploading 10MB to Cloudflare)..."
     UL=$(dd if=/dev/zero bs=1M count=10 2>/dev/null | \
          curl -4 --interface "$IFACE" -s -w '%{speed_upload}\n' -o /dev/null -X POST https://speed.cloudflare.com/__up)
+    verbose "Upload speed (raw): $UL bytes/sec"
 
     echo "$DL $UL"
 }
