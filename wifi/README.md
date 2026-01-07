@@ -24,13 +24,19 @@ A comprehensive network diagnostics tool that works with both WiFi and Ethernet 
 - `-v, --verbose` - Enable verbose output to see detailed test information
 - `-h, --help` - Show help message
 
+**Interactive Mode:**
+When run without the `-v` flag, the script will interactively ask if you want to enable verbose mode after selecting your network interface.
+
 **Examples:**
 ```bash
-# Run with default output
+# Run with interactive prompt for verbose mode
 ./wifitester.sh
 
-# Run with verbose output to see detailed test results
+# Run with verbose mode enabled via flag (skips prompt)
 ./wifitester.sh -v
+
+# Show help
+./wifitester.sh -h
 ```
 
 ## Requirements

@@ -12,18 +12,14 @@ gateway_test() {
 packet_loss() {
     verbose "Running packet loss test (10 pings to 1.1.1.1)..."
     OUTPUT=$(ping -I "$IFACE" -c 10 1.1.1.1)
-    if [ "$VERBOSE" = "1" ]; then
-        echo "$OUTPUT"
-    fi
+    verbose "$OUTPUT"
     echo "$OUTPUT" | grep -oP '\d+(?=% packet loss)'
 }
 
 latency_stats() {
     verbose "Running latency test (10 pings to 1.1.1.1)..."
     OUTPUT=$(ping -I "$IFACE" -c 10 1.1.1.1)
-    if [ "$VERBOSE" = "1" ]; then
-        echo "$OUTPUT"
-    fi
+    verbose "$OUTPUT"
     echo "$OUTPUT" | grep -oP '(?<=rtt min/avg/max/mdev = ).*'
 }
 

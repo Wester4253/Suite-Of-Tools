@@ -2,10 +2,12 @@
 
 # Parse command line arguments
 VERBOSE=0
+VERBOSE_SET_BY_FLAG=0
 while [[ $# -gt 0 ]]; do
     case $1 in
         -v|--verbose)
             VERBOSE=1
+            VERBOSE_SET_BY_FLAG=1
             shift
             ;;
         -h|--help)
@@ -60,6 +62,23 @@ source ./output.sh
 
 print_header
 select_interface
+
+# Ask user about verbose mode if not set by command-line flag
+if [ "$VERBOSE_SET_BY_FLAG" = "0" ]; then
+    echo ""
+    read -p "Enable verbose mode? (y/N): " VERBOSE_CHOICE
+    case "$VERBOSE_CHOICE" in
+        [Yy]|[Yy][Ee][Ss])
+            VERBOSE=1
+            export VERBOSE
+            cyan "Verbose mode enabled."
+            ;;
+        *)
+            VERBOSE=0
+            export VERBOSE
+            ;;
+    esac
+fi
 
 print_section "Interface Selected: $IFACE"
 verbose "Interface type: $(ip -o link show "$IFACE" | awk '{print $2,$3,$17}')"
