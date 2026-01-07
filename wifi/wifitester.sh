@@ -23,9 +23,9 @@ mkdir -p "$TMP_DIR"
 cd "$TMP_DIR" || exit 1
 
 # Download latest scripts
-curl -fsS "$BASE_URL/interfaces.sh" -o interfaces.sh || exit 1
-curl -fsS "$BASE_URL/tests.sh"      -o tests.sh      || exit 1
-curl -fsS "$BASE_URL/output.sh"     -o output.sh     || exit 1
+curl -fsS "$BASE_URL/wifi/interfaces.sh" -o interfaces.sh || exit 1
+curl -fsS "$BASE_URL/wifi/tests.sh"      -o tests.sh      || exit 1
+curl -fsS "$BASE_URL/wifi/output.sh"     -o output.sh     || exit 1
 
 chmod +x *.sh
 

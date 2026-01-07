@@ -21,7 +21,7 @@ A comprehensive network diagnostics tool that tests:
 You can run the WiFi tester directly from GitHub without cloning:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/wifitester.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/wifi/wifitester.sh | bash
 ```
 
 This will prompt you to select a network interface and run comprehensive diagnostics.
