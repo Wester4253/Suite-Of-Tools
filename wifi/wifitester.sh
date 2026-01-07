@@ -60,6 +60,13 @@ source ./interfaces.sh
 source ./tests.sh
 source ./output.sh
 
+# Cleanup function
+cleanup_and_exit() {
+    cd /
+    rm -rf "$TMP_DIR"
+    exit "${1:-1}"
+}
+
 print_header
 select_interface
 
@@ -95,17 +102,13 @@ verbose "IP addresses: $IP_ADDRESSES"
 if [ "$CARRIER_STATUS" != "UP" ] && [ "$CARRIER_STATUS" != "UNKNOWN" ]; then
     red "Error: Interface $IFACE is not connected (state: $CARRIER_STATUS)."
     red "Please connect the interface or select a different one."
-    cd /
-    rm -rf "$TMP_DIR"
-    exit 1
+    cleanup_and_exit 1
 fi
 
 if [ -z "$IP_ADDRESSES" ]; then
     red "Error: Interface $IFACE has no IP address assigned."
     red "Please configure an IP address on the interface or select a different one."
-    cd /
-    rm -rf "$TMP_DIR"
-    exit 1
+    cleanup_and_exit 1
 fi
 
 print_section "Running full network diagnostics..."
