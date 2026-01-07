@@ -13,38 +13,7 @@ A comprehensive network diagnostics tool that tests:
 - Gateway connectivity
 - IPv4 and IPv6 connectivity
 - DNS resolution
-
-## Usage
-
-### Quick Start (via curl)
-
-You can run the WiFi tester directly from GitHub without cloning:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/wifi/wifitester.sh | bash
-```
-
-This will prompt you to select a network interface and run comprehensive diagnostics.
-
-### Local Usage
-
-Clone the repository and run scripts directly:
-
-```bash
-git clone https://github.com/Wester4253/Suite-Of-Tools.git
-cd Suite-Of-Tools
-chmod +x wifitester.sh
-./wifitester.sh
-```
-
-### Individual Components
-
-Each component can be run or sourced independently:
-
-- `interfaces.sh` - Network interface selection utility
-- `tests.sh` - Network testing functions
-- `output.sh` - Output formatting utilities
-
+- 
 ## Requirements
 
 - Linux system
