@@ -94,8 +94,8 @@ verbose "Interface type: $(ip -o link show "$IFACE" | awk '{print $2,$3,$17}')"
 CARRIER_STATUS=$(ip -o link show "$IFACE" | grep -o 'state [A-Z]*' | awk '{print $2}')
 verbose "Interface state: $CARRIER_STATUS"
 
-# Check if interface has IP address
-IP_ADDRESSES=$(ip -o addr show "$IFACE" | awk '/inet/ {print $4}')
+# Check if interface has IP address (requires IPv4 for ping tests)
+IP_ADDRESSES=$(ip -o addr show "$IFACE" | awk '/inet / {print $4}')
 verbose "IP addresses: $IP_ADDRESSES"
 
 # Validate interface is suitable for testing
@@ -106,8 +106,8 @@ if [ "$CARRIER_STATUS" != "UP" ] && [ "$CARRIER_STATUS" != "UNKNOWN" ]; then
 fi
 
 if [ -z "$IP_ADDRESSES" ]; then
-    red "Error: Interface $IFACE has no IP address assigned."
-    red "Please configure an IP address on the interface or select a different one."
+    red "Error: Interface $IFACE has no IPv4 address assigned."
+    red "Please configure an IPv4 address on the interface or select a different one."
     cleanup_and_exit 1
 fi
 
