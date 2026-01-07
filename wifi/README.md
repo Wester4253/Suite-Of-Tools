@@ -4,16 +4,35 @@ A suite of network diagnostic and testing tools for Linux systems.
 
 ## Tools
 
-### WiFi Tester (`wifitester.sh`)
+### Network Tester (`wifitester.sh`)
 
-A comprehensive network diagnostics tool that tests:
+A comprehensive network diagnostics tool that works with both WiFi and Ethernet interfaces. Tests include:
 - Packet loss
 - Latency
 - Download/upload speeds
 - Gateway connectivity
 - IPv4 and IPv6 connectivity
 - DNS resolution
-- 
+
+#### Usage
+
+```bash
+./wifitester.sh [-v|--verbose] [-h|--help]
+```
+
+**Options:**
+- `-v, --verbose` - Enable verbose output to see detailed test information
+- `-h, --help` - Show help message
+
+**Examples:**
+```bash
+# Run with default output
+./wifitester.sh
+
+# Run with verbose output to see detailed test results
+./wifitester.sh -v
+```
+
 ## Requirements
 
 - Linux system
