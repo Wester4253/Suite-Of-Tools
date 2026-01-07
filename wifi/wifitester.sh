@@ -60,6 +60,13 @@ source ./interfaces.sh
 source ./tests.sh
 source ./output.sh
 
+# Cleanup function
+cleanup_and_exit() {
+    cd /
+    rm -rf "$TMP_DIR"
+    exit "${1:-1}"
+}
+
 print_header
 select_interface
 
@@ -82,7 +89,28 @@ fi
 
 print_section "Interface Selected: $IFACE"
 verbose "Interface type: $(ip -o link show "$IFACE" | awk '{print $2,$3,$17}')"
-verbose "IP addresses: $(ip -o addr show "$IFACE" | awk '{print $4}')"
+
+# Check if interface has carrier (is connected)
+CARRIER_STATUS=$(ip -o link show "$IFACE" | grep -o 'state [A-Z]*' | awk '{print $2}')
+verbose "Interface state: $CARRIER_STATUS"
+
+# Check if interface has IP address (requires IPv4 for ping tests)
+IP_ADDRESSES=$(ip -o addr show "$IFACE" | awk '/inet / {print $4}')
+verbose "IP addresses: $IP_ADDRESSES"
+
+# Validate interface is suitable for testing
+if [ "$CARRIER_STATUS" != "UP" ] && [ "$CARRIER_STATUS" != "UNKNOWN" ]; then
+    red "Error: Interface $IFACE is not connected (state: $CARRIER_STATUS)."
+    red "Please connect the interface or select a different one."
+    cleanup_and_exit 1
+fi
+
+if [ -z "$IP_ADDRESSES" ]; then
+    red "Error: Interface $IFACE has no IPv4 address assigned."
+    red "Please configure an IPv4 address on the interface or select a different one."
+    cleanup_and_exit 1
+fi
+
 print_section "Running full network diagnostics..."
 
 # Run packet loss and latency tests
