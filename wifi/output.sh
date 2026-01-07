@@ -10,7 +10,7 @@ VERBOSE=${VERBOSE:-0}
 
 verbose() {
     if [ "$VERBOSE" = "1" ]; then
-        echo "$@"
+        echo "$@" >&2
     fi
 }
 
