@@ -30,12 +30,7 @@ run_speedtest() {
     DL=$(curl -4 --interface "$IFACE" -s -w '%{speed_download}\n' -o /dev/null https://speed.cloudflare.com/__down?bytes=25000000)
     verbose "Download speed (raw): $DL bytes/sec"
 
-    verbose "Running upload test (uploading 10MB to Cloudflare)..."
-    UL=$(dd if=/dev/zero bs=1M count=10 2>/dev/null | \
-         curl -4 --interface "$IFACE" -s -w '%{speed_upload}\n' -o /dev/null -X POST https://speed.cloudflare.com/__up)
-    verbose "Upload speed (raw): $UL bytes/sec"
-
-    echo "$DL $UL"
+    echo "$DL"
 }
 
 score_loss() {
