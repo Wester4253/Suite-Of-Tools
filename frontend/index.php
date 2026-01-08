@@ -13,6 +13,6 @@ if (
     exit;
 }
 
-// Browser? send them to GitHub
-header("Location: https://github.com/Wester4253/Suite-Of-Tools", true, 302);
+// Browser? send them to the homepage!
+header("Location: home.html", true, 302);
 exit;

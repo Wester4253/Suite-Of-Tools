@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suite of Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #0f3460;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid #16213e;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #16213e;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.85;
+            font-weight: 300;
+            color: #b0b0b0;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 45px;
+        }
+
+        .section h2 {
+            color: #00d4ff;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: 1.05em;
+            color: #d0d0d0;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-item {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #16213e;
+            border-left: 3px solid #00d4ff;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(22, 33, 62, 1);
+            border-left-color: #0099cc;
+            transform: translateY(-3px);
+        }
+
+        .feature-item h3 {
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-size: 1.15em;
+        }
+
+        .feature-item p {
+            color: #b0b0b0;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #1a1a2e;
+            color: #00d4ff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 1em;
+            margin: 20px 0;
+            border: 1px solid #16213e;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #16213e;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #0f3460;
+            padding: 14px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: #00d4ff;
+            border: 2px solid #00d4ff;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .footer {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 30px 40px;
+            text-align: center;
+            color: #808080;
+            font-size: 0.9em;
+            border-top: 1px solid #16213e;
+        }
+
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 25px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 30px 25px;
+            }
+
+            .section h2 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛠️ Suite of Tools</h1>
+            <p>Simple tools for IT stuff I needed</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>What is this?</h2>
+                <p class="description">
+                    Suite of Tools is a collection of utilities I built for my own IT needs. It's lightweight, does what it's supposed to do, and doesn't get in the way. Currently includes a solid network tester, with plans to add more tools as I need them.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>What you get</h2>
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="icon">📦</div>
+                        <h3>No bloat</h3>
+                        <p>Just needs curl, ping, and a shell. That's it. No dependencies to deal with.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📊</div>
+                        <h3>Network scoring</h3>
+                        <p>Tests your connection and gives you a score out of 100. Simple and useful.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🚀</div>
+                        <h3>Easy to use</h3>
+                        <p>Launcher script makes running tests straightforward. No complicated setup.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🐧</div>
+                        <h3>Linux-friendly</h3>
+                        <p>Works on most Linux distros. Mac support coming eventually.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>How to use it</h2>
+                <p class="description">
+                    Just run this command and let it do its thing:
+                </p>
+                <div class="code-block">
+                    <code>curl -fsSL https://wstr.codes | bash</code>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <a href="https://github.com/Wester4253/Suite-Of-Tools" class="cta-button">Check it out on GitHub</a>
+                <a href="https://wstr.codes" class="cta-button secondary">Run it now</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Made by <a href="https://github.com/Wester4253">Wester4253</a></p>
+            <p style="margin-top: 8px; font-size: 0.85em;">Thanks for using it</p>
+        </div>
+    </div>
+</body>
+</html>
