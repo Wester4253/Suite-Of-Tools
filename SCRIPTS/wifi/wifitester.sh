@@ -105,10 +105,9 @@ LOSS=$(packet_loss)
 LAT=$(latency_stats)
 
 # Run speedtest
-read DL_RAW UL_RAW <<< "$(run_speedtest)"
+DL_RAW=$(run_speedtest)
 
 DL=$(( DL_RAW * 8 / 1000000 ))
-UL=$(( UL_RAW * 8 / 1000000 ))
 
 # Scoring
 LOSS_SCORE=$(score_loss "$LOSS")
@@ -127,7 +126,6 @@ score_bar "$LAT_SCORE"
 
 print_section "Speed Test"
 echo "Download: $DL Mbps"
-echo "Upload:   $UL Mbps"
 score_bar "$SPD_SCORE"
 
 print_section "Overall Network Health"
