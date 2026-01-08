@@ -8,7 +8,7 @@ if (
     strpos($ua, 'httpie') !== false
 ) {
     header("Content-Type: text/plain");
-    readfile(__DIR__ . "/index.sh");
+    readfile(__DIR__ . "/launcher.sh");
     exit;
 }
 
