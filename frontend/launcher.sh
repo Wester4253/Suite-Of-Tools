@@ -5,7 +5,6 @@ echo "Suite Of Tools – Noa Butterfield"
 echo
 echo "Select a tool:"
 echo "1. WiFi Network Diagnostics"
-echo "2. if you click me ill slime u out"
 echo
 
 read -p "Enter choice: " CHOICE </dev/tty
