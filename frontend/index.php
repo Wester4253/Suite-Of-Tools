@@ -1,6 +1,5 @@
-// PHP page to determine if the traffic comes from CURL or from HTTPS and then send back the respective content.
-
 <?php
+// PHP page to determine if the traffic comes from CURL or from HTTPS and then send back the respective content.
 $ua = strtolower($_SERVER['HTTP_USER_AGENT'] ?? '');
 
 if (
