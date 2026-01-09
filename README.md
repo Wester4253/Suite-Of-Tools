@@ -1,7 +1,7 @@
 <div align="left">
 
 # Suite of Tools
-### Made with love by Noa Butterfield
+### Made with love by Noa Butterfield❤️
 
 [![Bash](https://img.shields.io/badge/Language-Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
 [![Linux](https://img.shields.io/badge/OS-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://www.linux.org/)
