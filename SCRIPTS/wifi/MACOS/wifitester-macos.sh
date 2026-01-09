@@ -40,9 +40,9 @@ cd "$TMP_DIR" || exit 1
 
 # Download macOS-specific scripts
 echo "Fetching components..."
-curl -fsS "$BASE_URL/wifi/interfaces-macos.sh" -o interfaces.sh || { echo "Failed to download interfaces-macos.sh"; exit 1; }
-curl -fsS "$BASE_URL/wifi/tests-macos.sh"      -o tests.sh      || { echo "Failed to download tests-macos.sh"; exit 1; }
-curl -fsS "$BASE_URL/wifi/output.sh"           -o output.sh     || { echo "Failed to download output.sh"; exit 1; }
+curl -fsS "$BASE_URL/wifi/MACOS/interfaces-macos.sh" -o interfaces.sh || { echo "Failed to download interfaces-macos.sh"; exit 1; }
+curl -fsS "$BASE_URL/wifi/MACOS/tests-macos.sh"      -o tests.sh      || { echo "Failed to download tests-macos.sh"; exit 1; }
+curl -fsS "$BASE_URL/wifi/MACOS/output-macos.sh"     -o output.sh     || { echo "Failed to download output-macos.sh"; exit 1; }
 
 chmod +x *.sh
 
