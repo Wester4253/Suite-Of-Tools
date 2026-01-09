@@ -5,6 +5,7 @@
 
 [![Bash](https://img.shields.io/badge/Language-Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
 [![Linux](https://img.shields.io/badge/OS-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://www.linux.org/)
+[![macOS](https://img.shields.io/badge/OS-macOS-000000?style=for-the-badge&logo=apple&logoColor=white)](https://www.apple.com/macos/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://github.com/wstr-codes)
 
 <br>
@@ -35,8 +36,8 @@
       <b>Launcher script</b>
     </td>
     <td align="center" width="200px">
-      <h3>🐧</h3>
-      <b>Works with <i>most</i> Linux distros <br>(Mac testing soon!)</b>
+      <h3>🐧🍎</h3>
+      <b>Works on Linux and macOS!</b>
     </td>
   </tr>
 </table>
@@ -46,7 +47,7 @@
 
 ## Usage
 
-The suite is designed to be very easy to use with minimal dependencies. You only need `curl`, `ping`, and a basic shell. It *should* work on most Linux systems, though your experience may vary.
+The suite is designed to be very easy to use with minimal dependencies. You only need `curl`, `ping`, and a basic shell. It works on most Linux systems and macOS, though your experience may vary.
 
 Use this command to grab the script and run it:
 

@@ -1,0 +1,57 @@
+#!/bin/bash
+
+ping4_test() { ping -b "$IFACE" -c 5 1.1.1.1; }
+ping6_test() { ping6 -I "$IFACE" -c 5 2606:4700:4700::1111; }
+dns_test()   { ping -b "$IFACE" -c 3 cloudflare.com; }
+
+gateway_test() {
+    GW=$(route -n get default 2>/dev/null | awk '/gateway:/ {print $2}')
+    [ -z "$GW" ] && echo "NO_GW" || ping -b "$IFACE" -c 3 "$GW"
+}
+
+packet_loss() {
+    verbose "Running packet loss test (10 pings to 1.1.1.1)..."
+    OUTPUT=$(ping -b "$IFACE" -c 10 1.1.1.1)
+    verbose "$OUTPUT"
+    echo "$OUTPUT" | grep -oE '[0-9]+(\.[0-9]+)?% packet loss' | grep -oE '[0-9]+(\.[0-9]+)?' | cut -d. -f1
+}
+
+latency_stats() {
+    verbose "Running latency test (10 pings to 1.1.1.1)..."
+    OUTPUT=$(ping -b "$IFACE" -c 10 1.1.1.1)
+    verbose "$OUTPUT"
+    # macOS ping output format: round-trip min/avg/max/stddev = X/Y/Z/W ms
+    echo "$OUTPUT" | grep -oE 'min/avg/max/stddev = [0-9]+\.[0-9]+/[0-9]+\.[0-9]+/[0-9]+\.[0-9]+/[0-9]+\.[0-9]+' | sed 's/min\/avg\/max\/stddev = //'
+}
+
+# Cloudflare API speed test (no deps)
+run_speedtest() {
+    verbose "Running speed test (downloading 25MB from Cloudflare)..."
+    DL=$(curl -4 --interface "$IFACE" -s -w '%{speed_download}\n' -o /dev/null https://speed.cloudflare.com/__down?bytes=25000000)
+    verbose "Download speed (raw): $DL bytes/sec"
+
+    echo "$DL"
+}
+
+score_loss() {
+    (( $1 == 0 )) && echo 100 && return
+    (( $1 <= 2 )) && echo 90 && return
+    (( $1 <= 5 )) && echo 75 && return
+    (( $1 <= 10 )) && echo 50 && return
+    echo 25
+}
+
+score_latency() {
+    AVG=$(echo "$1" | cut -d'/' -f2 | cut -d'.' -f1)
+    (( AVG < 30 )) && echo 100 && return
+    (( AVG < 60 )) && echo 85 && return
+    (( AVG < 100 )) && echo 65 && return
+    echo 40
+}
+
+score_speed() {
+    (( $1 > 300 )) && echo 100 && return
+    (( $1 > 150 )) && echo 85 && return
+    (( $1 > 50 )) && echo 65 && return
+    echo 40
+}

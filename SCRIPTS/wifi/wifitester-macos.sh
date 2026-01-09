@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# Detect OS and redirect to appropriate script
-OS_TYPE=$(uname -s)
-if [ "$OS_TYPE" = "Darwin" ]; then
-    # macOS detected - redirect to macOS-specific script
-    BASE_URL="https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/SCRIPTS"
-    exec bash <(curl -fsS "$BASE_URL/wifi/wifitester-macos.sh") "$@"
-fi
-
-# Continue with Linux version
 # Parse command line arguments
 VERBOSE=0
 VERBOSE_SET_BY_FLAG=0
@@ -40,7 +31,6 @@ if [ ! -t 0 ]; then
     exec < /dev/tty
 fi
 
-# FIXED: Added /SCRIPTS to the BASE_URL
 BASE_URL="https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/SCRIPTS"
 TMP_DIR="/tmp/wifitester.$$"
 
@@ -48,11 +38,11 @@ TMP_DIR="/tmp/wifitester.$$"
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR" || exit 1
 
-# FIXED: Added /wifi/ to the individual file paths
+# Download macOS-specific scripts
 echo "Fetching components..."
-curl -fsS "$BASE_URL/wifi/interfaces.sh" -o interfaces.sh || { echo "Failed to download interfaces.sh"; exit 1; }
-curl -fsS "$BASE_URL/wifi/tests.sh"      -o tests.sh      || { echo "Failed to download tests.sh"; exit 1; }
-curl -fsS "$BASE_URL/wifi/output.sh"     -o output.sh     || { echo "Failed to download output.sh"; exit 1; }
+curl -fsS "$BASE_URL/wifi/interfaces-macos.sh" -o interfaces.sh || { echo "Failed to download interfaces-macos.sh"; exit 1; }
+curl -fsS "$BASE_URL/wifi/tests-macos.sh"      -o tests.sh      || { echo "Failed to download tests-macos.sh"; exit 1; }
+curl -fsS "$BASE_URL/wifi/output.sh"           -o output.sh     || { echo "Failed to download output.sh"; exit 1; }
 
 chmod +x *.sh
 
@@ -90,16 +80,19 @@ fi
 
 print_section "Interface Selected: $IFACE"
 
-# Check if interface has carrier
-CARRIER_STATUS=$(ip -o link show "$IFACE" | grep -o 'state [A-Z]*' | awk '{print $2}')
-
-# Check if interface has IP address
-IP_ADDRESSES=$(ip -o addr show "$IFACE" | awk '/inet / {print $4}')
+# Check if interface exists and is active (macOS way)
+IFACE_STATUS=$(ifconfig "$IFACE" 2>/dev/null | grep "status:" | awk '{print $2}')
+IP_ADDRESSES=$(ifconfig "$IFACE" 2>/dev/null | grep "inet " | awk '{print $2}')
 
 # Validate interface
-if [ "$CARRIER_STATUS" != "UP" ] && [ "$CARRIER_STATUS" != "UNKNOWN" ]; then
-    echo "Error: Interface $IFACE is not connected (state: $CARRIER_STATUS)."
+if [ -z "$IFACE_STATUS" ]; then
+    echo "Error: Interface $IFACE not found."
     cleanup_and_exit 1
+fi
+
+if [ "$IFACE_STATUS" != "active" ] && [ -z "$IP_ADDRESSES" ]; then
+    echo "Warning: Interface $IFACE may not be connected (status: $IFACE_STATUS)."
+    # Don't exit, let user continue - some interfaces might work without "active" status
 fi
 
 if [ -z "$IP_ADDRESSES" ]; then
