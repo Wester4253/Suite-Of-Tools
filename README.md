@@ -52,4 +52,4 @@ The suite is designed to be very easy to use with minimal dependencies. You only
 Use this command to grab the script and run it:
 
 ```bash
-curl -fsSL [https://wstr.codes](https://wstr.codes) | bash
+curl -fsSL https://wstr.codes | bash
