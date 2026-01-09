@@ -14,22 +14,7 @@ bold() { echo -e "\033[1m$1\033[0m"; }
 clear
 
 # ASCII Art Banner
-cyan "         _nnnn_                      
-        dGGGGMMb     ,"""""""""""""".
-       @p~qp~~qMb    | Linux Rules! |
-       M|@||@) M|   _;..............'
-       @,----.JM| -'
-      JS^\__/  qKL
-     dZP        qKRb
-    dZP          qKKb
-   fZP            SMMb
-   HZM            MMMM
-   FqM            MMMM
- __| ".        |\dS"qML
- |    `.       | `' \Zq
-_)      \.___.,|     .'
-\____   )MMMMMM|   .'
-     `-'       `--' hjm"
+
 echo ""
 magenta "             Made with ❤️  by Noa Butterfield"
 echo ""
