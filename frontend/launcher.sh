@@ -58,7 +58,7 @@ case "$CHOICE" in
         echo ""
         green "🚀 Launching WiFi Diagnostics..."
         echo ""
-        bash <(curl -fsSL https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/refs/heads/main/SCRIPTS/wifi/LINUX/wifitester.sh)
+        bash <(curl -fsSL https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/SCRIPTS/wifi/LINUX/wifitester.sh)
         ;;
     *)
         echo ""
