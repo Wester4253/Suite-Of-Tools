@@ -13,7 +13,7 @@ packet_loss() {
     verbose "Running packet loss test (10 pings to 1.1.1.1)..."
     OUTPUT=$(ping -b "$IFACE" -c 10 1.1.1.1)
     verbose "$OUTPUT"
-    echo "$OUTPUT" | grep -oE '[0-9]+\.[0-9]+% packet loss' | grep -oE '[0-9]+\.[0-9]+' | cut -d. -f1
+    echo "$OUTPUT" | grep -oE '[0-9]+(\.[0-9]+)?% packet loss' | grep -oE '[0-9]+(\.[0-9]+)?' | cut -d. -f1
 }
 
 latency_stats() {
@@ -27,7 +27,6 @@ latency_stats() {
 # Cloudflare API speed test (no deps)
 run_speedtest() {
     verbose "Running speed test (downloading 25MB from Cloudflare)..."
-    curl -4 --interface "$IFACE" -s https://speed.cloudflare.com/__down?bytes=25000000 >/dev/null
     DL=$(curl -4 --interface "$IFACE" -s -w '%{speed_download}\n' -o /dev/null https://speed.cloudflare.com/__down?bytes=25000000)
     verbose "Download speed (raw): $DL bytes/sec"
 
