@@ -5,7 +5,7 @@ OS_TYPE=$(uname -s)
 if [ "$OS_TYPE" = "Darwin" ]; then
     # macOS detected - redirect to macOS-specific script
     BASE_URL="https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/SCRIPTS"
-    exec bash <(curl -fsS "$BASE_URL/wifi/MACOS/wifitester-macos.sh") "$@"
+    exec bash <(curl -fsS "$BASE_URL/networking_tester/MACOS/wifitester-macos.sh") "$@"
 fi
 
 # Continue with Linux version
@@ -50,9 +50,9 @@ cd "$TMP_DIR" || exit 1
 
 # FIXED: Added /wifi/LINUX/ to the individual file paths
 echo "Fetching components..."
-curl -fsS "$BASE_URL/wifi/LINUX/interfaces.sh" -o interfaces.sh || { echo "Failed to download interfaces.sh"; exit 1; }
-curl -fsS "$BASE_URL/wifi/LINUX/tests.sh"      -o tests.sh      || { echo "Failed to download tests.sh"; exit 1; }
-curl -fsS "$BASE_URL/wifi/LINUX/output.sh"     -o output.sh     || { echo "Failed to download output.sh"; exit 1; }
+curl -fsS "$BASE_URL/networking_tester/LINUX/interfaces.sh" -o interfaces.sh || { echo "Failed to download interfaces.sh"; exit 1; }
+curl -fsS "$BASE_URL/networking_tester/LINUX/tests.sh"      -o tests.sh      || { echo "Failed to download tests.sh"; exit 1; }
+curl -fsS "$BASE_URL/networking_tester/LINUX/output.sh"     -o output.sh     || { echo "Failed to download output.sh"; exit 1; }
 
 chmod +x *.sh
 
