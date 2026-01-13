@@ -54,4 +54,7 @@ Use this command to grab the script and run it:
 ```bash
 curl -fsSL https://wstr.codes | bash
 ```
+## License 
+Do whatever you want. Open to the public.
+
 <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" width="40" height="40" />
