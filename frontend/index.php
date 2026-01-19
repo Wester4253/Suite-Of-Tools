@@ -13,5 +13,5 @@ if (
 }
 
 // Browser? send them to the homepage!
-header("Location: home.html", true, 302);
+header("Location: westr42.xyz", true, 302);
 exit;
