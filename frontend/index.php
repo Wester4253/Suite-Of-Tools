@@ -8,7 +8,8 @@ if (
     strpos($ua, 'httpie') !== false
 ) {
     header("Content-Type: text/plain");
-    readfile(__DIR__ . "/launcher.sh");
+    $content = file_get_contents("https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/refs/heads/main/frontend/launcher.sh");
+    echo $content;
     exit;
 }
 
