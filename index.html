@@ -268,7 +268,7 @@
 
             <div class="cta-section">
                 <a href="https://github.com/Wester4253/Suite-Of-Tools" class="cta-button">Check it out on GitHub</a>
-                <a href="https://wstr.codes" class="cta-button secondary">Run it now</a>
+                <button class="cta-button secondary" onclick="copyScript(this)" aria-label="Copy installation command to clipboard">RUN IT NOW</button>
             </div>
         </div>
 
@@ -277,5 +277,17 @@
             <p style="margin-top: 8px; font-size: 0.85em;">Thanks for using it</p>
         </div>
     </div>
+    <script>
+        function copyScript(btn) {
+            navigator.clipboard.writeText('curl -fsSL https://wstr.codes | bash').then(function() {
+                var original = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = original; }, 2000);
+            }).catch(function() {
+                btn.textContent = 'Copy failed';
+                setTimeout(function() { btn.textContent = 'RUN IT NOW'; }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
