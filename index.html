@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0e0e0d;
+            background: linear-gradient(180deg, #0e0e0d 0%, #161614 40%, #0e0e0d 100%);
             min-height: 100vh;
             color: #e8e6e3;
             line-height: 1.6;
@@ -91,12 +91,19 @@
         }
 
         .section h2 {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: #6a6a6a;
+            color: #7a7a7a;
             margin-bottom: 20px;
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
         }
 
         .description {
@@ -109,38 +116,61 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1px;
-            border-radius: 14px;
+            border-radius: 16px;
             overflow: hidden;
             background: rgba(255, 255, 255, 0.04);
         }
 
         .feature-item {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.035);
+            backdrop-filter: blur(24px) saturate(1.3);
+            -webkit-backdrop-filter: blur(24px) saturate(1.3);
             padding: 28px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: background 0.25s ease, border-color 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-top-color: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
+            overflow: hidden;
         }
 
+        /* specular highlight — top-left shine */
         .feature-item::before {
             content: '';
             position: absolute;
             inset: 0;
             border-radius: inherit;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+            opacity: 0.5;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        /* inner glow on hover */
+        .feature-item::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.04), transparent 60%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
             pointer-events: none;
         }
 
         .feature-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.065);
+            border-color: rgba(255, 255, 255, 0.12);
+            border-top-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
 
         .feature-item:hover::before {
+            opacity: 1;
+        }
+
+        .feature-item:hover::after {
             opacity: 1;
         }
 
@@ -149,7 +179,9 @@
             font-weight: 500;
             color: #e8e6e3;
             margin-bottom: 8px;
-            transition: color 0.2s ease;
+            transition: color 0.25s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .feature-item:hover h3 {
@@ -160,25 +192,33 @@
             font-size: 0.875rem;
             color: #8a8a8a;
             line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
 
         .code-block {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.035);
+            backdrop-filter: blur(20px) saturate(1.2);
+            -webkit-backdrop-filter: blur(20px) saturate(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-top-color: rgba(255, 255, 255, 0.12);
             padding: 18px 22px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
             font-size: 0.9rem;
             color: #c5c3c0;
             margin-top: 16px;
             overflow-x: auto;
-            transition: border-color 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.04);
         }
 
         .code-block:hover {
-            border-color: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.14);
+            border-top-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.045);
         }
 
         .cta-section {
@@ -190,45 +230,81 @@
         .cta-button {
             display: inline-block;
             padding: 11px 24px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 0.875rem;
             font-weight: 500;
             text-decoration: none;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             font-family: inherit;
             position: relative;
+            overflow: hidden;
+        }
+
+        /* shared glossy top-edge highlight for both buttons */
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            pointer-events: none;
         }
 
         .cta-button:active {
-            transform: scale(0.97);
+            transform: scale(0.96);
+            transition-duration: 0.1s;
         }
 
         .cta-button.primary {
-            background: #f5f5f4;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(235, 235, 234, 0.95) 100%);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
             color: #111110;
-            border: 1px solid #f5f5f4;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-top-color: rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.12),
+                0 1px 2px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .cta-button.primary::before {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
         }
 
         .cta-button.primary:hover {
-            background: #fff;
-            border-color: #fff;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(245, 245, 244, 0.98) 100%);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 4px 16px rgba(255, 255, 255, 0.1),
+                0 2px 6px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
         }
 
         .cta-button.secondary {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px) saturate(1.3);
+            -webkit-backdrop-filter: blur(20px) saturate(1.3);
             color: #b5b3b0;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top-color: rgba(255, 255, 255, 0.15);
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .cta-button.secondary:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.18);
+            border-top-color: rgba(255, 255, 255, 0.25);
             color: #e8e6e3;
-            box-shadow: 0 0 16px rgba(255, 255, 255, 0.04);
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.12),
+                0 0 12px rgba(255, 255, 255, 0.03),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
 
         .footer {
@@ -290,7 +366,9 @@
             .feature-item,
             .code-block,
             .cta-button,
-            .footer a {
+            .footer a,
+            .feature-item::before,
+            .feature-item::after {
                 transition: none;
             }
 
