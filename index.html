@@ -12,269 +12,230 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #111110;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: #e0e0e0;
+            color: #e8e6e3;
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background: #0f3460;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            border: 1px solid #16213e;
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px 48px;
         }
 
-        .header {
-            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
-            padding: 60px 40px;
-            text-align: center;
-            border-bottom: 1px solid #16213e;
+        .hero {
+            padding-bottom: 56px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .header h1 {
-            font-size: 2.8em;
-            margin-bottom: 15px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #f5f5f4;
+            margin-bottom: 12px;
         }
 
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.85;
-            font-weight: 300;
-            color: #b0b0b0;
-        }
-
-        .content {
-            padding: 50px 40px;
+        .hero .tagline {
+            font-size: 1rem;
+            color: #8a8a8a;
+            font-weight: 400;
         }
 
         .section {
-            margin-bottom: 45px;
+            padding: 48px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
         }
 
         .section h2 {
-            color: #00d4ff;
-            font-size: 1.6em;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6a6a6a;
             margin-bottom: 20px;
-            font-weight: 600;
         }
 
         .description {
-            font-size: 1.05em;
-            color: #d0d0d0;
-            line-height: 1.8;
-            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #b5b3b0;
+            line-height: 1.75;
         }
 
         .features {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-top: 25px;
-        }
-
-        @media (max-width: 600px) {
-            .features {
-                grid-template-columns: 1fr;
-            }
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .feature-item {
-            background: rgba(22, 33, 62, 0.8);
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid #16213e;
-            border-left: 3px solid #00d4ff;
-            transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-            background: rgba(22, 33, 62, 1);
-            border-left-color: #0099cc;
-            transform: translateY(-3px);
+            background: #181818;
+            padding: 28px 24px;
         }
 
         .feature-item h3 {
-            color: #00d4ff;
-            margin-bottom: 10px;
-            font-size: 1.15em;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #e8e6e3;
+            margin-bottom: 8px;
         }
 
         .feature-item p {
-            color: #b0b0b0;
-            font-size: 0.95em;
+            font-size: 0.875rem;
+            color: #8a8a8a;
             line-height: 1.6;
         }
 
         .code-block {
-            background: #1a1a2e;
-            color: #00d4ff;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 1em;
-            margin: 20px 0;
-            border: 1px solid #16213e;
+            background: #181818;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 18px 22px;
+            border-radius: 10px;
+            font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            color: #c5c3c0;
+            margin-top: 16px;
             overflow-x: auto;
         }
 
-        .code-block code {
-            font-size: 0.95em;
-            font-weight: 500;
-        }
-
         .cta-section {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid #16213e;
+            display: flex;
+            gap: 12px;
+            padding-top: 48px;
         }
 
         .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-            color: #0f3460;
-            padding: 14px 40px;
+            padding: 11px 24px;
             border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
             text-decoration: none;
-            font-size: 1.05em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 10px;
-            border: none;
             cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease;
+            font-family: inherit;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        .cta-button.primary {
+            background: #f5f5f4;
+            color: #111110;
+            border: 1px solid #f5f5f4;
+        }
+
+        .cta-button.primary:hover {
+            background: #d9d9d8;
+            border-color: #d9d9d8;
         }
 
         .cta-button.secondary {
             background: transparent;
-            color: #00d4ff;
-            border: 2px solid #00d4ff;
+            color: #b5b3b0;
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .cta-button.secondary:hover {
-            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #e8e6e3;
         }
 
         .footer {
-            background: rgba(22, 33, 62, 0.8);
-            padding: 30px 40px;
-            text-align: center;
-            color: #808080;
-            font-size: 0.9em;
-            border-top: 1px solid #16213e;
+            padding: 40px 0 0;
+            color: #4a4a4a;
+            font-size: 0.8rem;
         }
 
         .footer a {
-            color: #00d4ff;
+            color: #8a8a8a;
             text-decoration: none;
-            font-weight: 600;
         }
 
         .footer a:hover {
-            text-decoration: underline;
+            color: #b5b3b0;
         }
 
-        .icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 40px 25px;
+        @media (max-width: 600px) {
+            .page {
+                padding: 48px 20px 36px;
             }
 
-            .header h1 {
-                font-size: 2em;
+            .hero h1 {
+                font-size: 1.625rem;
             }
 
-            .content {
-                padding: 30px 25px;
+            .features {
+                grid-template-columns: 1fr;
             }
 
-            .section h2 {
-                font-size: 1.4em;
+            .cta-section {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🛠️ Suite of Tools</h1>
-            <p>Simple tools for IT stuff I needed</p>
+    <div class="page">
+        <div class="hero">
+            <h1>Suite of Tools</h1>
+            <p class="tagline">Simple tools for IT stuff I needed</p>
         </div>
 
-        <div class="content">
-            <div class="section">
-                <h2>What is this?</h2>
-                <p class="description">
-                    Suite of Tools is a collection of utilities I built for my own IT needs. It's lightweight, does what it's supposed to do, and doesn't get in the way. Currently includes a solid network tester, with plans to add more tools as I need them.
-                </p>
-            </div>
+        <div class="section">
+            <h2>About</h2>
+            <p class="description">
+                Suite of Tools is a collection of utilities I built for my own IT needs. It's lightweight, does what it's supposed to do, and doesn't get in the way. Currently includes a solid network tester, with plans to add more tools as I need them.
+            </p>
+        </div>
 
-            <div class="section">
-                <h2>What you get</h2>
-                <div class="features">
-                    <div class="feature-item">
-                        <div class="icon">📦</div>
-                        <h3>No bloat</h3>
-                        <p>Just needs curl, ping, and a shell. That's it. No dependencies to deal with.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">📊</div>
-                        <h3>Network scoring</h3>
-                        <p>Tests your connection and gives you a score out of 100. Simple and useful.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">🚀</div>
-                        <h3>Easy to use</h3>
-                        <p>Launcher script makes running tests straightforward. No complicated setup.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="icon">🐧</div>
-                        <h3>Linux-friendly</h3>
-                        <p>Works on <i>most</i> linux distros. Works on macOS.</p>
-                    </div>
+        <div class="section">
+            <h2>Features</h2>
+            <div class="features">
+                <div class="feature-item">
+                    <h3>No bloat</h3>
+                    <p>Just needs curl, ping, and a shell. That's it. No dependencies to deal with.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Network scoring</h3>
+                    <p>Tests your connection and gives you a score out of 100. Simple and useful.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Easy to use</h3>
+                    <p>Launcher script makes running tests straightforward. No complicated setup.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Linux-friendly</h3>
+                    <p>Works on <em>most</em> Linux distros. Works on macOS.</p>
                 </div>
             </div>
+        </div>
 
-            <div class="section">
-                <h2>How to use it</h2>
-                <p class="description">
-                    Just run this command and let it do its thing:
-                </p>
-                <div class="code-block">
-                    <code>curl -fsSL https://wstr.codes | bash</code>
-                </div>
+        <div class="section">
+            <h2>Install</h2>
+            <p class="description">Just run this command and let it do its thing:</p>
+            <div class="code-block">
+                <code>curl -fsSL https://wstr.codes | bash</code>
             </div>
+        </div>
 
-            <div class="cta-section">
-                <a href="https://github.com/Wester4253/Suite-Of-Tools" class="cta-button">Check it out on GitHub</a>
-                <button class="cta-button secondary" onclick="copyScript(this)" aria-label="Copy installation command to clipboard">RUN IT NOW</button>
-            </div>
+        <div class="cta-section">
+            <a href="https://github.com/Wester4253/Suite-Of-Tools" class="cta-button primary">View on GitHub</a>
+            <button class="cta-button secondary" onclick="copyScript(this)" aria-label="Copy installation command to clipboard">Copy install command</button>
         </div>
 
         <div class="footer">
             <p>Made by <a href="https://github.com/Wester4253">Wester4253</a></p>
-            <p style="margin-top: 8px; font-size: 0.85em;">Thanks for using it</p>
         </div>
     </div>
     <script>
@@ -285,7 +246,7 @@
                 setTimeout(function() { btn.textContent = original; }, 2000);
             }).catch(function() {
                 btn.textContent = 'Copy failed';
-                setTimeout(function() { btn.textContent = 'RUN IT NOW'; }, 2000);
+                setTimeout(function() { btn.textContent = 'Copy install command'; }, 2000);
             });
         }
     </script>
