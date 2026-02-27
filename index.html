@@ -13,16 +13,53 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #111110;
+            background: #0e0e0d;
             min-height: 100vh;
             color: #e8e6e3;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* subtle ambient glow behind content */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.025) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .page {
+            position: relative;
+            z-index: 1;
             max-width: 720px;
             margin: 0 auto;
             padding: 80px 24px 48px;
+        }
+
+        /* fade-in on load */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        .fade-in:nth-child(2) { animation-delay: 0.07s; }
+        .fade-in:nth-child(3) { animation-delay: 0.14s; }
+        .fade-in:nth-child(4) { animation-delay: 0.21s; }
+        .fade-in:nth-child(5) { animation-delay: 0.28s; }
+        .fade-in:nth-child(6) { animation-delay: 0.35s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero {
@@ -72,14 +109,39 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .feature-item {
-            background: #181818;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.25s ease, border-color 0.25s ease;
+            position: relative;
+        }
+
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-item:hover::before {
+            opacity: 1;
         }
 
         .feature-item h3 {
@@ -87,6 +149,11 @@
             font-weight: 500;
             color: #e8e6e3;
             margin-bottom: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .feature-item:hover h3 {
+            color: #fff;
         }
 
         .feature-item p {
@@ -96,7 +163,9 @@
         }
 
         .code-block {
-            background: #181818;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.06);
             padding: 18px 22px;
             border-radius: 10px;
@@ -105,6 +174,11 @@
             color: #c5c3c0;
             margin-top: 16px;
             overflow-x: auto;
+            transition: border-color 0.25s ease;
+        }
+
+        .code-block:hover {
+            border-color: rgba(255, 255, 255, 0.12);
         }
 
         .cta-section {
@@ -121,8 +195,13 @@
             font-weight: 500;
             text-decoration: none;
             cursor: pointer;
-            transition: background 0.15s ease, border-color 0.15s ease;
+            transition: all 0.2s ease;
             font-family: inherit;
+            position: relative;
+        }
+
+        .cta-button:active {
+            transform: scale(0.97);
         }
 
         .cta-button.primary {
@@ -132,19 +211,24 @@
         }
 
         .cta-button.primary:hover {
-            background: #d9d9d8;
-            border-color: #d9d9d8;
+            background: #fff;
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
         .cta-button.secondary {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #b5b3b0;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .cta-button.secondary:hover {
-            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
             color: #e8e6e3;
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.04);
         }
 
         .footer {
@@ -156,10 +240,22 @@
         .footer a {
             color: #8a8a8a;
             text-decoration: none;
+            transition: color 0.2s ease;
         }
 
         .footer a:hover {
             color: #b5b3b0;
+        }
+
+        /* copied flash effect */
+        .cta-button.flash {
+            animation: flashPulse 0.3s ease;
+        }
+
+        @keyframes flashPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2); }
+            50% { box-shadow: 0 0 16px 4px rgba(255, 255, 255, 0.1); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
 
         @media (max-width: 600px) {
@@ -183,23 +279,42 @@
                 text-align: center;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in {
+                opacity: 1;
+                transform: none;
+                animation: none;
+            }
+
+            .feature-item,
+            .code-block,
+            .cta-button,
+            .footer a {
+                transition: none;
+            }
+
+            .cta-button.flash {
+                animation: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="page">
-        <div class="hero">
+        <div class="hero fade-in">
             <h1>Suite of Tools</h1>
             <p class="tagline">Simple tools for IT stuff I needed</p>
         </div>
 
-        <div class="section">
+        <div class="section fade-in">
             <h2>About</h2>
             <p class="description">
                 Suite of Tools is a collection of utilities I built for my own IT needs. It's lightweight, does what it's supposed to do, and doesn't get in the way. Currently includes a solid network tester, with plans to add more tools as I need them.
             </p>
         </div>
 
-        <div class="section">
+        <div class="section fade-in">
             <h2>Features</h2>
             <div class="features">
                 <div class="feature-item">
@@ -221,7 +336,7 @@
             </div>
         </div>
 
-        <div class="section">
+        <div class="section fade-in">
             <h2>Install</h2>
             <p class="description">Just run this command and let it do its thing:</p>
             <div class="code-block">
@@ -229,12 +344,12 @@
             </div>
         </div>
 
-        <div class="cta-section">
+        <div class="cta-section fade-in">
             <a href="https://github.com/Wester4253/Suite-Of-Tools" class="cta-button primary">View on GitHub</a>
             <button class="cta-button secondary" onclick="copyScript(this)" aria-label="Copy installation command to clipboard">Copy install command</button>
         </div>
 
-        <div class="footer">
+        <div class="footer fade-in">
             <p>Made by <a href="https://github.com/Wester4253">Wester4253</a></p>
         </div>
     </div>
@@ -243,7 +358,11 @@
             navigator.clipboard.writeText('curl -fsSL https://wstr.codes | bash').then(function() {
                 var original = btn.textContent;
                 btn.textContent = 'Copied!';
-                setTimeout(function() { btn.textContent = original; }, 2000);
+                btn.classList.add('flash');
+                setTimeout(function() {
+                    btn.textContent = original;
+                    btn.classList.remove('flash');
+                }, 2000);
             }).catch(function() {
                 btn.textContent = 'Copy failed';
                 setTimeout(function() { btn.textContent = 'Copy install command'; }, 2000);
