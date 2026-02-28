@@ -1,3 +1,4 @@
+exec bash <(curl -fsSL 'https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/frontend/launcher.sh')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -378,7 +379,7 @@
         }
     </style>
 </head>
-<body>
+<body><!-- Removes the bash exec line that curl|bash reads as line 1 (pre-doctype text node) --><script>(function(){var b=document.body;if(b.firstChild&&b.firstChild.nodeType===3)b.removeChild(b.firstChild)})()</script>
     <div class="page">
         <div class="hero fade-in">
             <h1>Suite of Tools</h1>
@@ -418,7 +419,7 @@
             <h2>Install</h2>
             <p class="description">Just run this command and let it do its thing:</p>
             <div class="code-block">
-                <code>curl -fsSL https://wstr.codes/launcher.sh | bash</code>
+                <code>curl -fsSL https://wstr.codes | bash</code>
             </div>
         </div>
 
@@ -433,7 +434,7 @@
     </div>
     <script>
         function copyScript(btn) {
-            navigator.clipboard.writeText('curl -fsSL https://wstr.codes/launcher.sh | bash').then(function() {
+            navigator.clipboard.writeText('curl -fsSL https://wstr.codes | bash').then(function() {
                 var original = btn.textContent;
                 btn.textContent = 'Copied!';
                 btn.classList.add('flash');
