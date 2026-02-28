@@ -14,5 +14,5 @@ if (
 }
 
 // Browser? send them to the homepage!
-header("Location: https://westr42.xyz", true, 302);
+header("Location: https://wstr.codes", true, 302);
 exit;
