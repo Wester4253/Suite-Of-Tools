@@ -1,0 +1,453 @@
+curl -fsSL 'https://raw.githubusercontent.com/Wester4253/Suite-Of-Tools/main/frontend/launcher.sh' | bash
+exit
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suite of Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0e0e0d 0%, #161614 40%, #0e0e0d 100%);
+            min-height: 100vh;
+            color: #e8e6e3;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* subtle ambient glow behind content */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.025) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px 48px;
+        }
+
+        /* fade-in on load */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        .fade-in:nth-child(2) { animation-delay: 0.07s; }
+        .fade-in:nth-child(3) { animation-delay: 0.14s; }
+        .fade-in:nth-child(4) { animation-delay: 0.21s; }
+        .fade-in:nth-child(5) { animation-delay: 0.28s; }
+        .fade-in:nth-child(6) { animation-delay: 0.35s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            padding-bottom: 56px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #f5f5f4;
+            margin-bottom: 12px;
+        }
+
+        .hero .tagline {
+            font-size: 1rem;
+            color: #8a8a8a;
+            font-weight: 400;
+        }
+
+        .section {
+            padding: 48px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #7a7a7a;
+            margin-bottom: 20px;
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+        }
+
+        .description {
+            font-size: 1.05rem;
+            color: #b5b3b0;
+            line-height: 1.75;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.035);
+            backdrop-filter: blur(24px) saturate(1.3);
+            -webkit-backdrop-filter: blur(24px) saturate(1.3);
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-top-color: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* specular highlight — top-left shine */
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+            opacity: 0.5;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        /* inner glow on hover */
+        .feature-item::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.04), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.065);
+            border-color: rgba(255, 255, 255, 0.12);
+            border-top-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .feature-item:hover::before {
+            opacity: 1;
+        }
+
+        .feature-item:hover::after {
+            opacity: 1;
+        }
+
+        .feature-item h3 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #e8e6e3;
+            margin-bottom: 8px;
+            transition: color 0.25s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-item:hover h3 {
+            color: #fff;
+        }
+
+        .feature-item p {
+            font-size: 0.875rem;
+            color: #8a8a8a;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .code-block {
+            background: rgba(255, 255, 255, 0.035);
+            backdrop-filter: blur(20px) saturate(1.2);
+            -webkit-backdrop-filter: blur(20px) saturate(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-top-color: rgba(255, 255, 255, 0.12);
+            padding: 18px 22px;
+            border-radius: 12px;
+            font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            color: #c5c3c0;
+            margin-top: 16px;
+            overflow-x: auto;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .code-block:hover {
+            border-color: rgba(255, 255, 255, 0.14);
+            border-top-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.045);
+        }
+
+        .cta-section {
+            display: flex;
+            gap: 12px;
+            padding-top: 48px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 11px 24px;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* shared glossy top-edge highlight for both buttons */
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            pointer-events: none;
+        }
+
+        .cta-button:active {
+            transform: scale(0.96);
+            transition-duration: 0.1s;
+        }
+
+        .cta-button.primary {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(235, 235, 234, 0.95) 100%);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            color: #111110;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-top-color: rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.12),
+                0 1px 2px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .cta-button.primary::before {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+        }
+
+        .cta-button.primary:hover {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(245, 245, 244, 0.98) 100%);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 4px 16px rgba(255, 255, 255, 0.1),
+                0 2px 6px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px) saturate(1.3);
+            -webkit-backdrop-filter: blur(20px) saturate(1.3);
+            color: #b5b3b0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top-color: rgba(255, 255, 255, 0.15);
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.18);
+            border-top-color: rgba(255, 255, 255, 0.25);
+            color: #e8e6e3;
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.12),
+                0 0 12px rgba(255, 255, 255, 0.03),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .footer {
+            padding: 40px 0 0;
+            color: #4a4a4a;
+            font-size: 0.8rem;
+        }
+
+        .footer a {
+            color: #8a8a8a;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #b5b3b0;
+        }
+
+        /* copied flash effect */
+        .cta-button.flash {
+            animation: flashPulse 0.3s ease;
+        }
+
+        @keyframes flashPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2); }
+            50% { box-shadow: 0 0 16px 4px rgba(255, 255, 255, 0.1); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 48px 20px 36px;
+            }
+
+            .hero h1 {
+                font-size: 1.625rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                text-align: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in {
+                opacity: 1;
+                transform: none;
+                animation: none;
+            }
+
+            .feature-item,
+            .code-block,
+            .cta-button,
+            .footer a,
+            .feature-item::before,
+            .feature-item::after {
+                transition: none;
+            }
+
+            .cta-button.flash {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body><!-- Removes the bash exec line that curl|bash reads as line 1 (pre-doctype text node) --><script>(function(){var b=document.body;if(b.firstChild&&b.firstChild.nodeType===3)b.removeChild(b.firstChild)})()</script>
+    <div class="page">
+        <div class="hero fade-in">
+            <h1>Suite of Tools</h1>
+            <p class="tagline">Simple tools for IT stuff I needed</p>
+        </div>
+
+        <div class="section fade-in">
+            <h2>About</h2>
+            <p class="description">
+                Suite of Tools is a collection of utilities I built for my own IT needs. It's lightweight, does what it's supposed to do, and doesn't get in the way. Currently includes a solid network tester, with plans to add more tools as I need them.
+            </p>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Features</h2>
+            <div class="features">
+                <div class="feature-item">
+                    <h3>No bloat</h3>
+                    <p>Just needs curl, ping, and a shell. That's it. No dependencies to deal with.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Network scoring</h3>
+                    <p>Tests your connection and gives you a score out of 100. Simple and useful.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Easy to use</h3>
+                    <p>Launcher script makes running tests straightforward. No complicated setup.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Linux-friendly</h3>
+                    <p>Works on <em>most</em> Linux distros. Works on macOS.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Install</h2>
+            <p class="description">Just run this command and let it do its thing:</p>
+            <div class="code-block">
+                <code>curl -fsSL https://wstr.codes | bash</code>
+            </div>
+        </div>
+
+        <div class="cta-section fade-in">
+            <a href="https://github.com/Wester4253/Suite-Of-Tools" class="cta-button primary">View on GitHub</a>
+            <button class="cta-button secondary" onclick="copyScript(this)" aria-label="Copy installation command to clipboard">Copy install command</button>
+        </div>
+
+        <div class="footer fade-in">
+            <p>Made by <a href="https://github.com/Wester4253">Wester4253</a></p>
+        </div>
+    </div>
+    <script>
+        function copyScript(btn) {
+            navigator.clipboard.writeText('curl -fsSL https://wstr.codes | bash').then(function() {
+                var original = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('flash');
+                setTimeout(function() {
+                    btn.textContent = original;
+                    btn.classList.remove('flash');
+                }, 2000);
+            }).catch(function() {
+                btn.textContent = 'Copy failed';
+                setTimeout(function() { btn.textContent = 'Copy install command'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
