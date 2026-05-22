@@ -7,7 +7,6 @@ OS_TYPE=$(uname -s)
 DEFAULT_ASCII_URL="https://wstr.codes/ascii.txt"
 BANNER_MODE="default"
 CUSTOM_ASCII_URL=""
-COLOR_MODE="rgb"
 
 # Color functions (compatible with Linux and macOS)
 cyan() { echo -e "\033[1;36m$1\033[0m"; }
@@ -18,36 +17,52 @@ magenta() { echo -e "\033[1;35m$1\033[0m"; }
 bold() { echo -e "\033[1m$1\033[0m"; }
 
 colorize_banner() {
-    local index=0
-    local line
-    local color
-    local -a colors
+    awk '
+    BEGIN {
+        c[0,0]=128; c[0,1]=0;   c[0,2]=128
+        c[1,0]=255; c[1,1]=0;   c[1,2]=0
+        c[2,0]=0;   c[2,1]=255; c[2,2]=0
+        c[3,0]=0;   c[3,1]=0;   c[3,2]=255
+        c[4,0]=255; c[4,1]=255; c[4,2]=0
+        segments = 4
+        max_len = 0
+    }
+    {
+        lines[NR] = $0
+        if (length($0) > max_len) max_len = length($0)
+    }
+    END {
+        if (NR == 0) exit
+        max_pos = (max_len - 1) + ((NR - 1) * 2)
+        if (max_pos < 1) max_pos = 1
 
-    while IFS= read -r line || [ -n "$line" ]; do
-        case "$COLOR_MODE" in
-            rgb)
-                colors=("\033[1;31m" "\033[1;32m" "\033[1;34m")
-                color="${colors[$((index % ${#colors[@]}))]}"
-                ;;
-            purple-black)
-                color="\033[35;40m"
-                ;;
-            other)
-                colors=("\033[1;36m" "\033[1;33m" "\033[1;32m" "\033[1;35m")
-                color="${colors[$((index % ${#colors[@]}))]}"
-                ;;
-            *)
-                color=""
-                ;;
-        esac
+        for (line_num = 1; line_num <= NR; line_num++) {
+            line = lines[line_num]
+            len = length(line)
+            for (i = 1; i <= len; i++) {
+                char = substr(line, i, 1)
+                if (char == " ") {
+                    printf " "
+                    continue
+                }
 
-        if [ -n "$color" ]; then
-            printf "%b%s%b\n" "$color" "$line" "\033[0m"
-        else
-            printf "%s\n" "$line"
-        fi
-        index=$((index + 1))
-    done
+                pos = (i - 1) + ((line_num - 1) * 2)
+                global_ratio = pos / max_pos
+                if (global_ratio > 1) global_ratio = 1
+
+                seg = int(global_ratio * segments)
+                if (seg >= segments) seg = segments - 1
+                local_ratio = (global_ratio * segments) - seg
+
+                r = int(c[seg,0] + (c[seg+1,0] - c[seg,0]) * local_ratio)
+                g = int(c[seg,1] + (c[seg+1,1] - c[seg,1]) * local_ratio)
+                b = int(c[seg,2] + (c[seg+1,2] - c[seg,2]) * local_ratio)
+
+                printf "\033[38;2;%d;%d;%dm%s\033[0m", r, g, b, char
+            }
+            printf "\n"
+        }
+    }'
 }
 
 print_os_banner() {
@@ -129,9 +144,11 @@ render_banner() {
     esac
 }
 
-ascii_settings_menu() {
+settings_menu() {
     clear
-    bold "ASCII banner"
+    bold "Settings"
+    echo ""
+    bold "ASCII banner:"
     echo ""
     blue "  [1] Default (wstr.codes/ascii.txt)"
     blue "  [2] OS-based"
@@ -163,54 +180,6 @@ ascii_settings_menu() {
 
     echo ""
     read -p "Press Enter to return..." </dev/tty
-}
-
-color_settings_menu() {
-    clear
-    bold "Banner colors"
-    echo ""
-    blue "  [a] RGB"
-    blue "  [b] Purple/Black"
-    blue "  [c] Other colors"
-    blue "  [d] Back"
-    echo ""
-    read -p "Enter choice: " COLOR_CHOICE </dev/tty
-
-    case "$COLOR_CHOICE" in
-        a|A) COLOR_MODE="rgb" ;;
-        b|B) COLOR_MODE="purple-black" ;;
-        c|C) COLOR_MODE="other" ;;
-        d|D) return ;;
-        *) yellow "❌ Invalid choice." ;;
-    esac
-
-    echo ""
-    read -p "Press Enter to return..." </dev/tty
-}
-
-settings_menu() {
-    while true; do
-        clear
-        bold "Settings"
-        echo ""
-        blue "  [1] ASCII banner source"
-        blue "  [2] Banner colors"
-        blue "  [3] Back"
-        echo ""
-        read -p "Enter choice: " SETTING_CHOICE </dev/tty
-
-        case "$SETTING_CHOICE" in
-            1) ascii_settings_menu ;;
-            2) color_settings_menu ;;
-            3) return ;;
-            *)
-                echo ""
-                yellow "❌ Invalid choice."
-                echo ""
-                read -p "Press Enter to continue..." </dev/tty
-                ;;
-        esac
-    done
 }
 
 while true; do
