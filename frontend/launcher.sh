@@ -4,7 +4,7 @@
 OS_TYPE=$(uname -s)
 
 # Settings
-DEFAULT_ASCII_URL="https://wstr.codes/ascii.txt"
+DEFAULT_ASCII_URL="https://wstr.codes/banner.ascii"
 BANNER_MODE="default"
 CUSTOM_ASCII_URL=""
 
